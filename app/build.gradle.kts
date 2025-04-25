@@ -56,6 +56,7 @@ dependencies {
 
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     //  picasso
-    implementation(libs.squareup.picasso)
+    implementation(libs.picasso)
 }

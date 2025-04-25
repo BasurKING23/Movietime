@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Movietime</string>
+    <string name="action_search">Search</string>
 </resources>

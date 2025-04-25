@@ -1,17 +1,16 @@
 package com.example.movietime.data
 
-import android.graphics.Movie
-import android.telecom.Call
+import retrofit2.http.GET
+import retrofit2.http.Query
 
+interface MovieAPIService {
 
-interface OmdbApiService { @GET(".")
-    suspend fun getMovieByTitle(@Query("cdfa154c") apiKey: String, @Query("s") title: String): Call<Movies>
+    @GET("/")
+    suspend fun findMovieById(@Query("i") imdbID: String, @Query("apikey") apiKey: String = "cdfa154c"): Movies
 
-    @GET(".")
-    suspend fun getMovieById(@Query("cdfa154c") apiKey: String, @Query("i") imdbId: String): Call<Movies>
-
-    annotation class GET(val s: String)
-
-    annotation class Query(val s: String)
+    @GET("/")
+    suspend fun searchMoviesByTitle(@Query("s") title: String, @Query("apikey") apiKey: String = "cdfa154c"): MovieSearchResponse
 }
+
+
 
