@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieAdapter
-    private var moviesList: MutableList<Movies> = mutableListOf() // Cambiar a MutableList
+    private var moviesList: List<Movies> = emptyList() // Cambiar a MutableList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        searchMoviesByTitle("The Matrix")
+        searchMoviesByTitle("batman")
     }
 
     private fun navigateToDetail(movies: Movies) {
@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     if (response.response == "True") {
                         // Limpiar la lista actual y agregar solo la primera película
-                        moviesList.clear()
-                        moviesList.add(response.movies.first())
+                        moviesList = response.movies
+                        adapter.items = moviesList
                         adapter.notifyDataSetChanged()
                     } else {
                         Toast.makeText(this@MainActivity, "No se encontraron películas", Toast.LENGTH_SHORT).show()

@@ -9,7 +9,7 @@ import com.squareup.picasso.Picasso
 
 
 class MovieAdapter(
-    private var items: List<Movies> = mutableListOf(),
+    var items: List<Movies> = mutableListOf(),
     private val onClick: (Int) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MoviesViewHolder>() {
 
