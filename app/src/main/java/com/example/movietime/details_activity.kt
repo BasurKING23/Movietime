@@ -1,6 +1,5 @@
 package com.example.movietime
 
-import android.graphics.Movie
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -18,12 +17,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DetailActivity : AppCompatActivity() {
 
+    private lateinit var movies: Movies
+    private lateinit var binding: DetailsActivityBinding
+
+    // Definir una constante para la clave "MOVIES_ID"
     companion object {
         const val MOVIES_ID = "MOVIES_ID"
     }
-
-    private lateinit var movies: Movies
-    private lateinit var binding: DetailsActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +32,7 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        // Usar la constante MOVIES_ID como clave para obtener el IMDb ID
         val imdbID = intent.getStringExtra(MOVIES_ID) ?: return
 
         findMoviesById(imdbID)
@@ -76,19 +77,18 @@ class DetailActivity : AppCompatActivity() {
             }
         } catch (e: NullPointerException) {
             Toast.makeText(this, "Error loading movie data", Toast.LENGTH_SHORT).show()
-            finish()  // Cierra la actividad si ocurre un error al cargar los datos
+            finish()
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                finish()  // Cierra la actividad cuando se hace clic en la flecha de regreso
+                finish()
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
     }
 }
-
 

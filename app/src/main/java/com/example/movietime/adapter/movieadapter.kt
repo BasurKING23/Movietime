@@ -9,8 +9,8 @@ import com.squareup.picasso.Picasso
 
 
 class MovieAdapter(
-    private var dataSet: List<Movies> = mutableListOf(),
-    private val onItemClickListener: (Int) -> Unit
+    private var items: List<Movies> = mutableListOf(),
+    private val onClick: (Int) -> Unit
 ) : RecyclerView.Adapter<MovieAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
@@ -18,26 +18,22 @@ class MovieAdapter(
         return MoviesViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = dataSet.size
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        holder.render(dataSet[position])
+        val superhero = items[position]
+        holder.render(superhero)
         holder.itemView.setOnClickListener {
-            onItemClickListener(holder.adapterPosition)
+            onClick(position)
         }
     }
 
-    // Esta función actualizará la lista y notificará los cambios
-    fun updateData(newDataSet: List<Movies>) {
-        notifyDataSetChanged() // Notificar el cambio en la lista completa
-    }
-
     // ViewHolder interno para el RecyclerView
-    class MoviesViewHolder(private val binding: ItemMovieBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    class MoviesViewHolder(private val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun render(movies: Movies) {
             binding.titleTextView.text = movies.title
+            binding.yearTextView.text = movies.year
             Picasso.get().load(movies.imageURL).into(binding.posterImageView)
         }
     }
